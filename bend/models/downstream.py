@@ -97,6 +97,17 @@ class UpsampleLayer(nn.Module):
         """
         x = self.upsample(x)
         return x #torch.reshape(x, (x.shape[0], -1, self.input_size))
+
+class Identity(nn.Module):
+    """ Identity hack to implement whole models"""
+
+    def __init__(self):
+        super(Identity, self).__init__()
+        self.id = nn.Identity()
+        self.linear = nn.Linear(5,5)
+
+    def forward(self, x):
+        return self.id(x)
     
 class CNN(nn.Module):
     """

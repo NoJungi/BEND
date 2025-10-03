@@ -3,6 +3,8 @@ train_on_task.py
 ----------------
 Train a model on a downstream task.
 '''
+import sys
+sys.path.append("/home/s-nojung/jupyterhub/Masterarbeit/Code/BEND")
 import hydra 
 from omegaconf import DictConfig, OmegaConf, open_dict
 import torch
@@ -10,7 +12,6 @@ from  bend.utils.task_trainer import BaseTrainer,  MSELoss, BCEWithLogitsLoss, P
 import wandb
 from bend.models.downstream import CustomDataParallel
 import os
-import sys
 os.environ["WDS_VERBOSE_CACHE"] = "1"
 
 # load config 

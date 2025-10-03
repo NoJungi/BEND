@@ -13,8 +13,9 @@ Embedders can be used as follows. Please check the individual classes for more d
 ``embedding = embedder(sequence, remove_special_tokens=True, upsample_embeddings=True)``
 
 '''
-
-
+import sys
+sys.path.append("/home/s-nojung/jupyterhub/Masterarbeit/Code/hyena-dna")
+sys.path.append("/home/s-nojung/jupyterhub/Masterarbeit/Code/BEND")
 
 import torch
 import numpy as np
@@ -25,7 +26,7 @@ import os
 from bend.models.awd_lstm import AWDLSTMModelForInference
 from bend.models.dilated_cnn import ConvNetModel
 from bend.models.gena_lm import BertModel as GenaLMBertModel
-from bend.models.hyena_dna import HyenaDNAPreTrainedModel, CharacterTokenizer
+#from bend.models.hyena_dna import HyenaDNAPreTrainedModel, CharacterTokenizer
 from bend.models.dnabert2 import BertModel as DNABert2BertModel
 from bend.utils.download import download_model, download_model_zenodo
 
@@ -33,6 +34,9 @@ from tqdm.auto import tqdm
 from transformers import logging, BertModel, BertConfig, BertTokenizer, AutoModel, AutoTokenizer, BigBirdModel, AutoModelForMaskedLM
 from sklearn.preprocessing import LabelEncoder
 logging.set_verbosity_error()
+
+from huggingface import HyenaDNAPreTrainedModel
+from standalone_hyenadna import CharacterTokenizer
 
 
 
@@ -804,6 +808,99 @@ class HyenaDNAEmbedder(BaseEmbedder):
     # print(embeddings.shape)  # embeddings here!
 
 
+
+class HyenaDNAModel(BaseEmbedder):
+    '''Embed using the HyenaDNA model https://arxiv.org/abs/2306.15794'''
+    def load_model(self, path = None, ckpt_file_name="mcc.ckpt", **kwargs):
+
+        model = HyenaDNAPreTrainedModel.load_all_weights(path, ckpt_file_name) # load model from self-pretrained weights
+
+        model.to(device)
+        self.model = model
+        self.max_length = self.model.max_length
+
+        # create tokenizer - NOTE this adds CLS and SEP tokens when add_special_tokens=False
+        self.tokenizer = CharacterTokenizer(
+            characters=['A', 'C', 'G', 'T', 'N'],  # add DNA characters, N is uncertain
+            model_max_length=self.max_length + 2 ,  # to account for special tokens, like EOS
+            add_special_tokens=False,  # we handle special tokens elsewhere
+            padding_side='right', # since HyenaDNA is causal, we pad on the left
+        )
+
+    def embed(self, sequences: List[str], disable_tqdm: bool = False, **kwargs):
+        '''Embeds a list of sequences using the HyenaDNA model.
+        Parameters
+        ----------
+        sequences : List[str]
+            List of sequences to embed.
+        disable_tqdm : bool, optional
+            Whether to disable the tqdm progress bar. Defaults to False.
+        remove_special_tokens : bool, optional
+            Whether to remove the CLS and SEP tokens from the embeddings. Defaults to True.
+        upsample_embeddings : bool, optional
+            Whether to upsample the embeddings to match the length of the input sequences. Defaults to False.
+            Only provided for compatibility with other embedders. GPN embeddings are already the same length as the input sequence.
+        Returns
+        -------
+
+        embeddings : List[np.ndarray]
+            List of embeddings.
+        '''
+
+    # # prep model and forward
+    # model.to(device)
+    #             with torch.inference_mode():
+
+        embeddings = [] 
+        with torch.inference_mode():
+            for s in tqdm(sequences, disable=disable_tqdm):
+                chunks = [s[chunk : chunk + self.max_length] for chunk in  range(0, len(s), self.max_length)] # split into chunks
+                embedded_chunks = []
+                nr_chunks = len(chunks)
+                #print("LEN CHUNKS", nr_chunks)
+                for n_chunk, chunk in enumerate(chunks):
+
+                    #### Single embedding example ####
+                    #print("CHUNK:", n_chunk)
+
+                    if(n_chunk == nr_chunks-1):
+                        last_chunk_len = len(chunk)
+                        chunk = s[len(s) - self.max_length :] 
+
+                    tok_seq = self.tokenizer(chunk,
+                                add_special_tokens=False,  # this is what controls adding eos
+                                padding="max_length",
+                                max_length=self.max_length,
+                                truncation=True,
+                              )
+                    
+                    tok_seq = tok_seq["input_ids"]  # grab ids
+                    #print("tok seq shape", len(tok_seq))
+
+                    # place on device, convert to tensor
+                    tok_seq = torch.LongTensor(tok_seq)
+                    if (tok_seq.ndim == 1):
+                        tok_seq = tok_seq.unsqueeze(0)  # unsqueeze for batch dim
+                    tok_seq = tok_seq.to(device)
+
+                    output = self.model(tok_seq)
+                    if(n_chunk == nr_chunks-1):
+                        output = output[:, self.max_length-last_chunk_len :, :]
+                    #print("OUTPUT", output.shape)
+                    
+                    embedded_chunks.append(output.detach().cpu().numpy())
+
+                embedding = np.concatenate(embedded_chunks, axis=1)
+                
+                embeddings.append(embedding)
+                #print("seq LEN", len(s))
+                #print("EMBEDDING SHAPE", embedding.shape)
+
+        return embeddings
+
+    # print(embeddings.shape)  # embeddings here!
+
+
 class DNABert2Embedder(BaseEmbedder):
     """
     Embed using the DNABERT2 model https://arxiv.org/pdf/2306.15006.pdf
@@ -1232,3 +1329,13 @@ def embed_sequence(sequences : List[str], embedding_type : str = 'categorical', 
         return sequences
 
     return sequences
+
+
+if __name__ == "__main__":
+    path = "/home/s-nojung/jupyterhub/Masterarbeit/Code/hyena-dna/outputs/training/conv_gene_decoder/3layers/2order/2024-08-08/09-10-50-384663"
+    embedder = HyenaDNAModel(path)
+
+    embedding = embedder.embed(['AGGATGCCGAGAGTATATGGGA', 'CCCAACCGAGAGTATATGTTAT'])
+
+    embedding = embedder('AGGATGCCGAGAGTATATGGGA') 
+

@@ -490,12 +490,14 @@ class BaseTrainer:
         with torch.no_grad():
             for idx, (data, target) in enumerate(data_loader):
                 output = self.model(data.to(self.device), activation = self.config.params.activation)
+                output = self.model(data.to(self.device)) ##, activation = self.config.params.activation)
                 loss += self.criterion(output, target.to(self.device).long()).item()
 
                 if  self.config.params.criterion == 'bce': 
                     outputs.append(self.model.sigmoid(output).detach().cpu())
                 else: 
                     outputs.append(torch.argmax(self.model.softmax(output), dim=-1).detach().cpu()) 
+                    #outputs.append(torch.argmax(output, dim=-1).detach().cpu())
                 
                 targets_all.append(target.detach().cpu())  
 
