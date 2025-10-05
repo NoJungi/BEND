@@ -490,14 +490,13 @@ class BaseTrainer:
         with torch.no_grad():
             for idx, (data, target) in enumerate(data_loader):
                 output = self.model(data.to(self.device), activation = self.config.params.activation)
-                output = self.model(data.to(self.device)) ##, activation = self.config.params.activation)
                 loss += self.criterion(output, target.to(self.device).long()).item()
 
                 if  self.config.params.criterion == 'bce': 
                     outputs.append(self.model.sigmoid(output).detach().cpu())
                 else: 
-                    outputs.append(torch.argmax(self.model.softmax(output), dim=-1).detach().cpu()) 
-                    #outputs.append(torch.argmax(output, dim=-1).detach().cpu())
+                    #outputs.append(torch.argmax(self.model.softmax(output), dim=-1).detach().cpu()) 
+                    outputs.append(torch.argmax(output, dim=-1).detach().cpu())
                 
                 targets_all.append(target.detach().cpu())  
 
@@ -512,7 +511,7 @@ class BaseTrainer:
                                               torch.cat([i.flatten() for i in outputs]))
         return loss, metrics
 
-    def test(self, test_loader, checkpoint = None, overwrite=False):
+    def test(self, test_loader, checkpoint = None, overwrite=False, load_checkpoint=True):
         """
         Performs testing.
 
@@ -534,15 +533,16 @@ class BaseTrainer:
             The average validation metric.
         """
         print('TESTING')
-        if checkpoint is None:
-            df = pd.read_csv(f'{self.config.output_dir}/losses.csv')
-            checkpoint = pd.DataFrame(df.iloc[df[f"val_{self.config.params.metric}"].idxmax()]).T.reset_index(drop=True) 
-        #print('before load checkpoint', )
-        #print(self.model.state_dict()['conv2.1.bias'])
-        # load checkpoint
-        print(f'{self.config.output_dir}/checkpoints/epoch_{int(checkpoint["Epoch"].iloc[0])}.pt')
-        epoch, train_loss, val_loss, val_metric = self._load_checkpoint(f'{self.config.output_dir}/checkpoints/epoch_{int(checkpoint["Epoch"].iloc[0])}.pt')
-        print(f'Loaded checkpoint from epoch {epoch}, train loss: {train_loss:.3f}, val loss: {val_loss:.3f}, Val {self.config.params.metric}: {np.mean(val_metric):.3f}')
+        if load_checkpoint:
+            if checkpoint is None:
+                df = pd.read_csv(f'{self.config.output_dir}/losses.csv')
+                checkpoint = pd.DataFrame(df.iloc[df[f"val_{self.config.params.metric}"].idxmax()]).T.reset_index(drop=True) 
+            #print('before load checkpoint', )
+            #print(self.model.state_dict()['conv2.1.bias'])
+            # load checkpoint
+            print(f'{self.config.output_dir}/checkpoints/epoch_{int(checkpoint["Epoch"].iloc[0])}.pt')
+            epoch, train_loss, val_loss, val_metric = self._load_checkpoint(f'{self.config.output_dir}/checkpoints/epoch_{int(checkpoint["Epoch"].iloc[0])}.pt')
+            print(f'Loaded checkpoint from epoch {epoch}, train loss: {train_loss:.3f}, val loss: {val_loss:.3f}, Val {self.config.params.metric}: {np.mean(val_metric):.3f}')
         #print('before test', )
         #print(self.model.state_dict()['conv2.1.bias'])
         # test
@@ -562,7 +562,10 @@ class BaseTrainer:
             columns = ['test_loss', f'test_{self.config.params.metric}']
             data = [[loss, metric[0]]]
 
-        metrics = checkpoint.merge(pd.DataFrame(data = data, columns = columns), how = 'cross')
+        if load_checkpoint:
+            metrics = checkpoint.merge(pd.DataFrame(data = data, columns = columns), how = 'cross')
+        else:
+            metrics = pd.DataFrame(data = data, columns = columns)
 
         if not overwrite and os.path.exists(f'{self.config.output_dir}/best_model_metrics.csv'):
             best_model_metrics = pd.read_csv(f'{self.config.output_dir}/best_model_metrics.csv', index_col = False) 
@@ -570,7 +573,7 @@ class BaseTrainer:
             metrics = pd.concat([best_model_metrics, metrics], ignore_index=True)
 
         # save metrics to best model metrics
-        #metrics = metrics.drop_duplicates().reset_index(drop=True)
+        metrics = metrics.drop_duplicates().reset_index(drop=True)
         metrics.to_csv(f'{self.config.output_dir}/best_model_metrics.csv', index = False)
         return loss, metric 
     
