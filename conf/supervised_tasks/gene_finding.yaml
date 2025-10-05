@@ -9,9 +9,77 @@ hydra :
     - file://conf 
   sweeper:
     params:
-      embedder : my-hyena-model_2_lay_2_ord,
-                 my-hyena-model_3_lay_2_ord,
-                 my-hyena-model_fine_tuning
+      embedder : hyenadna-128_tiny-fine_tuning_full-CCE_F1_loss,
+            hyenadna-128_tiny-fine_tuning_full-CCE_loss,
+            hyenadna-128_tiny-fine_tuning_frozen_backbone-CCE_F1_loss,
+            hyenadna-128_tiny-fine_tuning_frozen_backbone-CCE_loss,
+            hyenadna-256_tiny-fine_tuning_full-CCE_F1_loss,
+            hyenadna-256_tiny-fine_tuning_full-CCE_loss,
+            hyenadna-256_tiny-fine_tuning_frozen_backbone-CCE_F1_loss,
+            hyenadna-256_tiny-fine_tuning_frozen_backbone-CCE_loss
+            #fully trained hynea models:
+            #hyenadna-128_d_model-1_layers-2_order-CCE_F1_loss,
+            #hyenadna-128_d_model-1_layers-2_order-CCE_loss,
+            #hyenadna-128_d_model-1_layers-3_order-CCE_F1_loss,
+            #hyenadna-128_d_model-1_layers-3_order-CCE_loss,
+            #hyenadna-128_d_model-1_layers-4_order-CCE_F1_loss,
+            #hyenadna-128_d_model-1_layers-4_order-CCE_loss,
+            #hyenadna-128_d_model-2_layers-2_order-CCE_F1_loss,
+            #hyenadna-128_d_model-2_layers-2_order-CCE_loss,
+            #hyenadna-128_d_model-2_layers-3_order-CCE_F1_loss,
+            #hyenadna-128_d_model-2_layers-3_order-CCE_loss,
+            #hyenadna-128_d_model-2_layers-4_order-CCE_F1_loss,
+            #hyenadna-128_d_model-2_layers-4_order-CCE_loss,
+            #hyenadna-128_d_model-3_layers-2_order-CCE_F1_loss,
+            #hyenadna-128_d_model-3_layers-2_order-CCE_loss,
+            #hyenadna-128_d_model-3_layers-3_order-CCE_F1_loss,
+            #hyenadna-128_d_model-3_layers-3_order-CCE_loss,
+            #hyenadna-128_d_model-3_layers-4_order-CCE_F1_loss,
+            #hyenadna-128_d_model-3_layers-4_order-CCE_loss,
+            #hyenadna-128_d_model-4_layers-2_order-CCE_F1_loss,
+            #hyenadna-128_d_model-4_layers-2_order-CCE_loss,
+            #hyenadna-128_d_model-4_layers-3_order-CCE_F1_loss,
+            #hyenadna-128_d_model-4_layers-3_order-CCE_loss,
+            #hyenadna-128_d_model-4_layers-4_order-CCE_F1_loss,
+            #hyenadna-128_d_model-4_layers-4_order-CCE_loss,
+            #hyenadna-128_d_model-5_layers-2_order-CCE_F1_loss,
+            #hyenadna-128_d_model-5_layers-2_order-CCE_loss,
+            #hyenadna-128_d_model-5_layers-3_order-CCE_F1_loss,
+            #hyenadna-128_d_model-5_layers-3_order-CCE_loss,
+            #hyenadna-128_d_model-5_layers-4_order-CCE_F1_loss,
+            #hyenadna-128_d_model-5_layers-4_order-CCE_loss,
+            #hyenadna-256_d_model-1_layers-2_order-CCE_F1_loss,
+            #hyenadna-256_d_model-1_layers-2_order-CCE_loss,
+            #hyenadna-256_d_model-1_layers-3_order-CCE_F1_loss,
+            #hyenadna-256_d_model-1_layers-3_order-CCE_loss,
+            #hyenadna-256_d_model-1_layers-4_order-CCE_F1_loss,
+            #hyenadna-256_d_model-1_layers-4_order-CCE_loss,
+            #hyenadna-256_d_model-2_layers-2_order-CCE_F1_loss,
+            #hyenadna-256_d_model-2_layers-2_order-CCE_loss,
+            #hyenadna-256_d_model-2_layers-3_order-CCE_F1_loss,
+            #hyenadna-256_d_model-2_layers-3_order-CCE_loss,
+            #hyenadna-256_d_model-2_layers-4_order-CCE_F1_loss,
+            #hyenadna-256_d_model-2_layers-4_order-CCE_loss,
+            #hyenadna-256_d_model-3_layers-2_order-CCE_F1_loss,
+            #hyenadna-256_d_model-3_layers-2_order-CCE_loss,
+            #hyenadna-256_d_model-3_layers-3_order-CCE_F1_loss,
+            #hyenadna-256_d_model-3_layers-3_order-CCE_loss,
+            #hyenadna-256_d_model-3_layers-4_order-CCE_F1_loss,
+            #hyenadna-256_d_model-3_layers-4_order-CCE_loss,
+            #hyenadna-256_d_model-4_layers-2_order-CCE_F1_loss,
+            #hyenadna-256_d_model-4_layers-2_order-CCE_loss,
+            #hyenadna-256_d_model-4_layers-3_order-CCE_F1_loss,
+            #hyenadna-256_d_model-4_layers-3_order-CCE_loss,
+            #hyenadna-256_d_model-4_layers-4_order-CCE_F1_loss,
+            #hyenadna-256_d_model-4_layers-4_order-CCE_loss,
+            #hyenadna-256_d_model-5_layers-2_order-CCE_F1_loss,
+            #hyenadna-256_d_model-5_layers-2_order-CCE_loss,
+            #hyenadna-256_d_model-5_layers-3_order-CCE_F1_loss,
+            #hyenadna-256_d_model-5_layers-3_order-CCE_loss,
+            #hyenadna-256_d_model-5_layers-4_order-CCE_F1_loss,
+            #hyenadna-256_d_model-5_layers-4_order-CCE_loss
+            #
+             #gena-lm-bigbird-base-t2t,
                  #gena-lm-bigbird-base-t2t,
                  #gena-lm-bert-large-t2,
                  #hyenadna-tiny-1k,
@@ -34,7 +102,10 @@ task : gene_finding
 embedder : onehot
 output_dir: ./downstream_tasks/${task}/${embedder}/
 model:
-  _target_: bend.models.downstream.Identity #CNN
+  _target_: bend.models.downstream.Identity 
+  # for normal BEND benchmark: CNN, here the whole trained model is evaluated, 
+  #the embedded files already contain class predictions, therefore only use Id as _target_
+
   #input_size: ${datadims.${embedder}}
   #output_size: ${datadims.${task}}
   #hidden_size: 64
@@ -55,11 +126,12 @@ data:
 params:
   epochs: 100
   load_checkpoint: false
-  mode: none  #train
+  mode: none  #train        # none: no training
   gradient_accumulation_steps: 1
   criterion: cross_entropy
   class_weights: null #[6.37, 1485.62, 1.52, 1485.62, 6.11, 1438.04, 1.52, 1438.04, 1.0]
   metric : mcc
   activation : none
+  load_checkpoint_for_testing : false  # when only testing a full model
 wandb:
   mode : disabled 

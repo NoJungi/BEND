@@ -9,9 +9,76 @@ hydra :
     - file://conf 
   sweeper:
     params:
-      model: my-hyena-model_2_lay_2_ord,
-             my-hyena-model_3_lay_2_ord,
-             my-hyena-model_fine_tuning
+      model: hyenadna-128_tiny-fine_tuning_full-CCE_F1_loss,
+            hyenadna-128_tiny-fine_tuning_full-CCE_loss,
+            hyenadna-128_tiny-fine_tuning_frozen_backbone-CCE_F1_loss,
+            hyenadna-128_tiny-fine_tuning_frozen_backbone-CCE_loss,
+            hyenadna-256_tiny-fine_tuning_full-CCE_F1_loss,
+            hyenadna-256_tiny-fine_tuning_full-CCE_loss,
+            hyenadna-256_tiny-fine_tuning_frozen_backbone-CCE_F1_loss,
+            hyenadna-256_tiny-fine_tuning_frozen_backbone-CCE_loss
+            #fully trained hynea models:
+            #hyenadna-128_d_model-1_layers-2_order-CCE_F1_loss,
+            #hyenadna-128_d_model-1_layers-2_order-CCE_loss,
+            #hyenadna-128_d_model-1_layers-3_order-CCE_F1_loss,
+            #hyenadna-128_d_model-1_layers-3_order-CCE_loss,
+            #hyenadna-128_d_model-1_layers-4_order-CCE_F1_loss,
+            #hyenadna-128_d_model-1_layers-4_order-CCE_loss,
+            #hyenadna-128_d_model-2_layers-2_order-CCE_F1_loss,
+            #hyenadna-128_d_model-2_layers-2_order-CCE_loss,
+            #hyenadna-128_d_model-2_layers-3_order-CCE_F1_loss,
+            #hyenadna-128_d_model-2_layers-3_order-CCE_loss,
+            #hyenadna-128_d_model-2_layers-4_order-CCE_F1_loss,
+            #hyenadna-128_d_model-2_layers-4_order-CCE_loss,
+            #hyenadna-128_d_model-3_layers-2_order-CCE_F1_loss,
+            #hyenadna-128_d_model-3_layers-2_order-CCE_loss,
+            #hyenadna-128_d_model-3_layers-3_order-CCE_F1_loss,
+            #hyenadna-128_d_model-3_layers-3_order-CCE_loss,
+            #hyenadna-128_d_model-3_layers-4_order-CCE_F1_loss,
+            #hyenadna-128_d_model-3_layers-4_order-CCE_loss,
+            #hyenadna-128_d_model-4_layers-2_order-CCE_F1_loss,
+            #hyenadna-128_d_model-4_layers-2_order-CCE_loss,
+            #hyenadna-128_d_model-4_layers-3_order-CCE_F1_loss,
+            #hyenadna-128_d_model-4_layers-3_order-CCE_loss,
+            #hyenadna-128_d_model-4_layers-4_order-CCE_F1_loss,
+            #hyenadna-128_d_model-4_layers-4_order-CCE_loss,
+            #hyenadna-128_d_model-5_layers-2_order-CCE_F1_loss,
+            #hyenadna-128_d_model-5_layers-2_order-CCE_loss,
+            #hyenadna-128_d_model-5_layers-3_order-CCE_F1_loss,
+            #hyenadna-128_d_model-5_layers-3_order-CCE_loss,
+            #hyenadna-128_d_model-5_layers-4_order-CCE_F1_loss,
+            #hyenadna-128_d_model-5_layers-4_order-CCE_loss,
+            #hyenadna-256_d_model-1_layers-2_order-CCE_F1_loss,
+            #hyenadna-256_d_model-1_layers-2_order-CCE_loss,
+            #hyenadna-256_d_model-1_layers-3_order-CCE_F1_loss,
+            #hyenadna-256_d_model-1_layers-3_order-CCE_loss,
+            #hyenadna-256_d_model-1_layers-4_order-CCE_F1_loss,
+            #hyenadna-256_d_model-1_layers-4_order-CCE_loss,
+            #hyenadna-256_d_model-2_layers-2_order-CCE_F1_loss,
+            #hyenadna-256_d_model-2_layers-2_order-CCE_loss,
+            #hyenadna-256_d_model-2_layers-3_order-CCE_F1_loss,
+            #hyenadna-256_d_model-2_layers-3_order-CCE_loss,
+            #hyenadna-256_d_model-2_layers-4_order-CCE_F1_loss,
+            #hyenadna-256_d_model-2_layers-4_order-CCE_loss,
+            #hyenadna-256_d_model-3_layers-2_order-CCE_F1_loss,
+            #hyenadna-256_d_model-3_layers-2_order-CCE_loss,
+            #hyenadna-256_d_model-3_layers-3_order-CCE_F1_loss,
+            #hyenadna-256_d_model-3_layers-3_order-CCE_loss,
+            #hyenadna-256_d_model-3_layers-4_order-CCE_F1_loss,
+            #hyenadna-256_d_model-3_layers-4_order-CCE_loss,
+            #hyenadna-256_d_model-4_layers-2_order-CCE_F1_loss,
+            #hyenadna-256_d_model-4_layers-2_order-CCE_loss,
+            #hyenadna-256_d_model-4_layers-3_order-CCE_F1_loss,
+            #hyenadna-256_d_model-4_layers-3_order-CCE_loss,
+            #hyenadna-256_d_model-4_layers-4_order-CCE_F1_loss,
+            #hyenadna-256_d_model-4_layers-4_order-CCE_loss,
+            #hyenadna-256_d_model-5_layers-2_order-CCE_F1_loss,
+            #hyenadna-256_d_model-5_layers-2_order-CCE_loss,
+            #hyenadna-256_d_model-5_layers-3_order-CCE_F1_loss,
+            #hyenadna-256_d_model-5_layers-3_order-CCE_loss,
+            #hyenadna-256_d_model-5_layers-4_order-CCE_F1_loss,
+            #hyenadna-256_d_model-5_layers-4_order-CCE_loss
+            #
              #gena-lm-bigbird-base-t2t,
              #gena-lm-bert-large-t2,
              #hyenadna-tiny-1k,
@@ -42,8 +109,285 @@ chunk : null # can be given as a list of chunks to embed
 data_dir : ./data/
 embedders_dir : ./pretrained_models/
 splits : null
-model : my-hyena-model #nt_transformer_1000g
+model : hyenadna-128_d_model-1_layers-2_order-CCE_F1_loss #nt_transformer_1000g
 task : gene_finding
+
+#### all trained hyena models:
+hyenadna-128_tiny-fine_tuning_full-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/fine_tuning/CCE_F1_loss/CNN_BEND_hyenadna-tiny-1k-seqlen_00006_lr/fully_tuned_32_batch_size_50_epochs_2025-10-03_16-28-24
+
+hyenadna-128_tiny-fine_tuning_full-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/fine_tuning/CCE_loss/CNN_BEND_hyenadna-tiny-1k-seqlen_00006_lr/fully_tuned_32_batch_size_50_epochs_2025-10-03_18-01-19
+
+hyenadna-128_tiny-fine_tuning_frozen_backbone-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/fine_tuning/CCE_F1_loss/CNN_BEND_hyenadna-tiny-1k-seqlen_00006_lr/freeze_32_batch_size_50_epochs_2025-10-03_14-40-40
+
+hyenadna-128_tiny-fine_tuning_frozen_backbone-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/fine_tuning/CCE_loss/CNN_BEND_hyenadna-tiny-1k-seqlen_00006_lr/freeze_32_batch_size_50_epochs_2025-10-03_18-28-20
+  
+hyenadna-256_tiny-fine_tuning_full-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/fine_tuning/CCE_F1_loss/CNN_BEND_hyenadna-tiny-1k-seqlen-d256_00006_lr/fully_tuned_32_batch_size_50_epochs_2025-10-03_16-19-13
+
+hyenadna-256_tiny-fine_tuning_full-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/fine_tuning/CCE_loss/CNN_BEND_hyenadna-tiny-1k-seqlen-d256_00006_lr/fully_tuned_32_batch_size_50_epochs_2025-10-03_18-01-19
+
+hyenadna-256_tiny-fine_tuning_frozen_backbone-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/fine_tuning/CCE_F1_loss/CNN_BEND_hyenadna-tiny-1k-seqlen-d256_00006_lr/freeze_32_batch_size_50_epochs_2025-10-03_15-57-46
+
+hyenadna-256_tiny-fine_tuning_frozen_backbone-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/fine_tuning/CCE_loss/CNN_BEND_hyenadna-tiny-1k-seqlen-d256_00006_lr/freeze_32_batch_size_50_epochs_2025-10-03_18-02-20
+
+
+hyenadna-128_d_model-1_layers-2_order-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_F1_loss/CNN_BEND_1026_max_length_00006_lr_128_d_model/1_layers/2_order_32_batch_size_50_epochs_2025-09-30_13-28-09
+
+hyenadna-128_d_model-1_layers-2_order-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_loss/CNN_BEND_1026_max_length_00006_lr_128_d_model/1_layers/2_order_32_batch_size_50_epochs_2025-10-01_09-03-35
+
+hyenadna-128_d_model-1_layers-3_order-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_F1_loss/CNN_BEND_1026_max_length_00006_lr_128_d_model/1_layers/3_order_32_batch_size_50_epochs_2025-09-30_19-14-12
+
+hyenadna-128_d_model-1_layers-3_order-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_loss/CNN_BEND_1026_max_length_00006_lr_128_d_model/1_layers/3_order_32_batch_size_50_epochs_2025-10-01_10-43-08
+
+hyenadna-128_d_model-1_layers-4_order-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_F1_loss/CNN_BEND_1026_max_length_00006_lr_128_d_model/1_layers/4_order_32_batch_size_50_epochs_2025-09-30_22-45-52
+
+hyenadna-128_d_model-1_layers-4_order-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_loss/CNN_BEND_1026_max_length_00006_lr_128_d_model/1_layers/4_order_32_batch_size_50_epochs_2025-10-01_11-48-16
+
+hyenadna-128_d_model-2_layers-2_order-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_F1_loss/CNN_BEND_1026_max_length_00006_lr_128_d_model/2_layers/2_order_32_batch_size_50_epochs_2025-09-30_14-43-54
+
+hyenadna-128_d_model-2_layers-2_order-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_loss/CNN_BEND_1026_max_length_00006_lr_128_d_model/2_layers/2_order_32_batch_size_50_epochs_2025-10-01_09-20-46
+
+hyenadna-128_d_model-2_layers-3_order-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_F1_loss/CNN_BEND_1026_max_length_00006_lr_128_d_model/2_layers/3_order_32_batch_size_50_epochs_2025-09-30_20-29-16
+
+hyenadna-128_d_model-2_layers-3_order-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_loss/CNN_BEND_1026_max_length_00006_lr_128_d_model/2_layers/3_order_32_batch_size_50_epochs_2025-10-01_10-43-08
+
+hyenadna-128_d_model-2_layers-4_order-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_F1_loss/CNN_BEND_1026_max_length_00006_lr_128_d_model/2_layers/4_order_32_batch_size_50_epochs_2025-09-30_23-49-25
+
+hyenadna-128_d_model-2_layers-4_order-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_loss/CNN_BEND_1026_max_length_00006_lr_128_d_model/2_layers/4_order_32_batch_size_50_epochs_2025-10-01_12-34-15
+
+hyenadna-128_d_model-3_layers-2_order-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_F1_loss/CNN_BEND_1026_max_length_00006_lr_128_d_model/3_layers/2_order_32_batch_size_50_epochs_2025-09-30_14-46-57
+
+hyenadna-128_d_model-3_layers-2_order-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_loss/CNN_BEND_1026_max_length_00006_lr_128_d_model/3_layers/2_order_32_batch_size_50_epochs_2025-10-01_10-22-24
+
+hyenadna-128_d_model-3_layers-3_order-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_F1_loss/CNN_BEND_1026_max_length_00006_lr_128_d_model/3_layers/3_order_32_batch_size_50_epochs_2025-09-30_21-22-18
+
+hyenadna-128_d_model-3_layers-3_order-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_loss/CNN_BEND_1026_max_length_00006_lr_128_d_model/3_layers/3_order_32_batch_size_50_epochs_2025-10-01_11-47-16
+
+hyenadna-128_d_model-3_layers-4_order-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_F1_loss/CNN_BEND_1026_max_length_00006_lr_128_d_model/3_layers/4_order_32_batch_size_50_epochs_2025-09-30_23-53-25
+
+hyenadna-128_d_model-3_layers-4_order-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_loss/CNN_BEND_1026_max_length_00006_lr_128_d_model/3_layers/4_order_32_batch_size_50_epochs_2025-10-01_13-21-43
+
+hyenadna-128_d_model-4_layers-2_order-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_F1_loss/CNN_BEND_1026_max_length_00006_lr_128_d_model/4_layers/2_order_32_batch_size_50_epochs_2025-09-30_14-50-33
+
+hyenadna-128_d_model-4_layers-2_order-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_loss/CNN_BEND_1026_max_length_00006_lr_128_d_model/4_layers/2_order_32_batch_size_50_epochs_2025-10-01_11-10-54
+
+hyenadna-128_d_model-4_layers-3_order-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_F1_loss/CNN_BEND_1026_max_length_00006_lr_128_d_model/4_layers/3_order_32_batch_size_50_epochs_2025-09-30_21-33-49
+
+hyenadna-128_d_model-4_layers-3_order-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_loss/CNN_BEND_1026_max_length_00006_lr_128_d_model/4_layers/3_order_32_batch_size_50_epochs_2025-10-01_12-22-07
+
+hyenadna-128_d_model-4_layers-4_order-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_F1_loss/CNN_BEND_1026_max_length_00006_lr_128_d_model/4_layers/4_order_32_batch_size_50_epochs_2025-10-01_00-53-47
+
+hyenadna-128_d_model-4_layers-4_order-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_loss/CNN_BEND_1026_max_length_00006_lr_128_d_model/4_layers/4_order_32_batch_size_50_epochs_2025-10-01_13-51-01
+
+hyenadna-128_d_model-5_layers-2_order-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_F1_loss/CNN_BEND_1026_max_length_00006_lr_128_d_model/5_layers/2_order_32_batch_size_50_epochs_2025-09-30_15-44-38
+
+hyenadna-128_d_model-5_layers-2_order-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_loss/CNN_BEND_1026_max_length_00006_lr_128_d_model/5_layers/2_order_32_batch_size_50_epochs_2025-10-01_11-30-36
+
+hyenadna-128_d_model-5_layers-3_order-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_F1_loss/CNN_BEND_1026_max_length_00006_lr_128_d_model/5_layers/3_order_32_batch_size_50_epochs_2025-09-30_22-28-21
+
+hyenadna-128_d_model-5_layers-3_order-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_loss/CNN_BEND_1026_max_length_00006_lr_128_d_model/5_layers/3_order_32_batch_size_50_epochs_2025-10-01_12-58-29
+
+hyenadna-128_d_model-5_layers-4_order-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_F1_loss/CNN_BEND_1026_max_length_00006_lr_128_d_model/5_layers/4_order_32_batch_size_50_epochs_2025-10-01_01-12-58
+
+hyenadna-128_d_model-5_layers-4_order-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_loss/CNN_BEND_1026_max_length_00006_lr_128_d_model/5_layers/4_order_32_batch_size_50_epochs_2025-10-01_14-56-27
+
+hyenadna-256_d_model-1_layers-2_order-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_F1_loss/CNN_BEND_1026_max_length_00006_lr_256_d_model/1_layers/2_order_32_batch_size_50_epochs_2025-10-01_02-13-34
+
+hyenadna-256_d_model-1_layers-2_order-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_loss/CNN_BEND_1026_max_length_00006_lr_256_d_model/1_layers/2_order_32_batch_size_50_epochs_2025-10-01_13-06-04
+
+hyenadna-256_d_model-1_layers-3_order-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_F1_loss/CNN_BEND_1026_max_length_00006_lr_256_d_model/1_layers/3_order_32_batch_size_50_epochs_2025-10-01_04-20-48
+
+hyenadna-256_d_model-1_layers-3_order-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_loss/CNN_BEND_1026_max_length_00006_lr_256_d_model/1_layers/3_order_32_batch_size_50_epochs_2025-10-01_14-23-38
+
+hyenadna-256_d_model-1_layers-4_order-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_F1_loss/CNN_BEND_1026_max_length_00006_lr_256_d_model/1_layers/4_order_32_batch_size_50_epochs_2025-10-01_05-49-10
+
+hyenadna-256_d_model-1_layers-4_order-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_loss/CNN_BEND_1026_max_length_00006_lr_256_d_model/1_layers/4_order_32_batch_size_50_epochs_2025-10-01_15-31-45
+
+hyenadna-256_d_model-2_layers-2_order-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_F1_loss/CNN_BEND_1026_max_length_00006_lr_256_d_model/2_layers/2_order_32_batch_size_50_epochs_2025-10-01_02-54-28
+
+hyenadna-256_d_model-2_layers-2_order-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_loss/CNN_BEND_1026_max_length_00006_lr_256_d_model/2_layers/2_order_32_batch_size_50_epochs_2025-10-01_13-56-04
+
+hyenadna-256_d_model-2_layers-3_order-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_F1_loss/CNN_BEND_1026_max_length_00006_lr_256_d_model/2_layers/3_order_32_batch_size_50_epochs_2025-10-01_05-29-28
+
+hyenadna-256_d_model-2_layers-3_order-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_loss/CNN_BEND_1026_max_length_00006_lr_256_d_model/2_layers/3_order_32_batch_size_50_epochs_2025-10-01_14-37-28
+
+hyenadna-256_d_model-2_layers-4_order-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_F1_loss/CNN_BEND_1026_max_length_00006_lr_256_d_model/2_layers/4_order_32_batch_size_50_epochs_2025-10-01_06-50-46
+
+hyenadna-256_d_model-2_layers-4_order-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_loss/CNN_BEND_1026_max_length_00006_lr_256_d_model/2_layers/4_order_32_batch_size_50_epochs_2025-10-01_16-43-01
+
+hyenadna-256_d_model-3_layers-2_order-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_F1_loss/CNN_BEND_1026_max_length_00006_lr_256_d_model/3_layers/2_order_32_batch_size_50_epochs_2025-10-01_03-15-41
+
+hyenadna-256_d_model-3_layers-2_order-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_loss/CNN_BEND_1026_max_length_00006_lr_256_d_model/3_layers/2_order_32_batch_size_50_epochs_2025-10-01_14-21-05
+
+hyenadna-256_d_model-3_layers-3_order-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_F1_loss/CNN_BEND_1026_max_length_00006_lr_256_d_model/3_layers/3_order_32_batch_size_50_epochs_2025-10-01_05-40-05
+
+hyenadna-256_d_model-3_layers-3_order-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_loss/CNN_BEND_1026_max_length_00006_lr_256_d_model/3_layers/3_order_32_batch_size_50_epochs_2025-10-01_15-44-30
+
+hyenadna-256_d_model-3_layers-4_order-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_F1_loss/CNN_BEND_1026_max_length_00006_lr_256_d_model/3_layers/4_order_32_batch_size_50_epochs_2025-10-01_08-01-59
+
+hyenadna-256_d_model-3_layers-4_order-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_loss/CNN_BEND_1026_max_length_00006_lr_256_d_model/3_layers/4_order_32_batch_size_50_epochs_2025-10-01_16-48-55
+
+hyenadna-256_d_model-4_layers-2_order-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_F1_loss/CNN_BEND_1026_max_length_00006_lr_256_d_model/4_layers/2_order_32_batch_size_50_epochs_2025-10-01_04-00-06
+
+hyenadna-256_d_model-4_layers-2_order-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_loss/CNN_BEND_1026_max_length_00006_lr_256_d_model/4_layers/2_order_32_batch_size_50_epochs_2025-10-01_15-26-39
+
+hyenadna-256_d_model-4_layers-3_order-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_F1_loss/CNN_BEND_1026_max_length_00006_lr_256_d_model/4_layers/3_order_32_batch_size_50_epochs_2025-10-01_06-51-47
+
+hyenadna-256_d_model-4_layers-3_order-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_loss/CNN_BEND_1026_max_length_00006_lr_256_d_model/4_layers/3_order_32_batch_size_50_epochs_2025-10-01_16-18-31
+
+hyenadna-256_d_model-4_layers-4_order-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_F1_loss/CNN_BEND_1026_max_length_00006_lr_256_d_model/4_layers/4_order_32_batch_size_50_epochs_2025-10-01_08-33-48
+
+hyenadna-256_d_model-4_layers-4_order-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_loss/CNN_BEND_1026_max_length_00006_lr_256_d_model/4_layers/4_order_32_batch_size_50_epochs_2025-10-01_18-09-09
+
+hyenadna-256_d_model-5_layers-2_order-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_F1_loss/CNN_BEND_1026_max_length_00006_lr_256_d_model/5_layers/2_order_32_batch_size_50_epochs_2025-10-01_04-20-48
+
+hyenadna-256_d_model-5_layers-2_order-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_loss/CNN_BEND_1026_max_length_00006_lr_256_d_model/5_layers/2_order_32_batch_size_50_epochs_2025-10-01_15-39-55
+
+hyenadna-256_d_model-5_layers-3_order-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_F1_loss/CNN_BEND_1026_max_length_00006_lr_256_d_model/5_layers/3_order_32_batch_size_50_epochs_2025-10-01_07-08-27
+
+hyenadna-256_d_model-5_layers-3_order-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_loss/CNN_BEND_1026_max_length_00006_lr_256_d_model/5_layers/3_order_32_batch_size_50_epochs_2025-10-01_17-26-03
+
+hyenadna-256_d_model-5_layers-4_order-CCE_F1_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_F1_loss/CNN_BEND_1026_max_length_00006_lr_256_d_model/5_layers/4_order_32_batch_size_50_epochs_2025-10-01_09-32-23
+
+hyenadna-256_d_model-5_layers-4_order-CCE_loss:
+  _target_: bend.utils.embedders.trainedHyenaDNAModel
+  model_path: ./pretrained_models/trained_hyenadna/train_full/CCE_loss/CNN_BEND_1026_max_length_00006_lr_256_d_model/5_layers/4_order_32_batch_size_50_epochs_2025-10-01_18-13-04
+
+##############################
+
 # model instatiators 
 dnabert2:
   _target_ : bend.utils.embedders.DNABert2Embedder
@@ -53,7 +397,6 @@ dnabert6:
   _target_ : bend.utils.embedders.DNABertEmbedder
   model_path : ${embedders_dir}/dnabert6
   kmer : 6
-  upsample_embeddings : true
 gena-lm-bigbird-base-t2t:
   _target_ : bend.utils.embedders.GENALMEmbedder
   model_name : AIRI-Institute/gena-lm-bigbird-base-t2t
@@ -77,15 +420,6 @@ hyenadna-medium-160k:
 hyenadna-medium-450k:
   _target_ : bend.utils.embedders.HyenaDNAEmbedder
   model_path : ${embedders_dir}/hyenadna/hyenadna-medium-450k-seqlen
-my-hyena-model_2_lay_2_ord:
-  _target_ : bend.utils.embedders.HyenaDNAModel
-  path : /home/s-nojung/brain/Masterarbeit/Code/hyena-dna/outputs/training/conv_gene_decoder/2layers/2order/2024-08-07/15-47-36-335631 #/home/s-nojung/brain/Masterarbeit/Code/hyena-dna/outputs/fine_tuning/conv_gene_decoder/2024-08-06/20-38-03-986813 #/home/s-nojung/jupyterhub/Masterarbeit/Code/hyena-dna/outputs/training/conv_gene_decoder/3layers/2order/2024-08-08/09-10-50-384663
-my-hyena-model_3_lay_2_ord:
-  _target_ : bend.utils.embedders.HyenaDNAModel
-  path : /home/s-nojung/jupyterhub/Masterarbeit/Code/hyena-dna/outputs/training/conv_gene_decoder/3layers/2order/2024-08-08/09-10-50-384663
-my-hyena-model_fine_tuning:
-  _target_ : bend.utils.embedders.HyenaDNAModel
-  path : /home/s-nojung/brain/Masterarbeit/Code/hyena-dna/outputs/fine_tuning/conv_gene_decoder/2024-08-06/20-38-03-986813
 resnetlm : 
   _target_ : bend.utils.embedders.ConvNetEmbedder
   model_path : ${embedders_dir}/resnetlm/
