@@ -99,14 +99,14 @@ class UpsampleLayer(nn.Module):
         return x #torch.reshape(x, (x.shape[0], -1, self.input_size))
 
 class Identity(nn.Module):
-    """ Identity hack to implement whole models"""
+    """ Identity to enable the evaluation of end-to-end trained models on the test data."""
 
     def __init__(self):
         super(Identity, self).__init__()
         self.id = nn.Identity()
-        self.linear = nn.Linear(5,5)
+        self.linear = nn.Linear(5,5) # hack otherwise optimizer has no trainable parameters
 
-    def forward(self, x):
+    def forward(self, x, **kwargs):
         return self.id(x)
     
 class CNN(nn.Module):
