@@ -284,8 +284,8 @@ class HyenaOperator(nn.Module):
         *x, v = uc.split(self.d_model, dim=1)
 
         k = self.filter_fn.filter(l_filter)[0]
-        k = rearrange(k, 'l (o d) -> o d l', o=self.order - 1)
-        bias = rearrange(self.filter_fn.bias, '(o d) -> o d', o=self.order - 1)
+        k = rearrange(k, 'l (d o) -> o d l', o=self.order - 1)   # (d o) not (o d) otherwise weights are used in other order than trained with
+        bias = rearrange(self.filter_fn.bias, '(d o) -> o d', o=self.order - 1)
 
         for o, x_i in enumerate(reversed(x[1:])):
             v = self.dropout(v * x_i)
@@ -859,6 +859,104 @@ class SequenceDecoder(nn.Module):
 
 #@title Model (backbone + head)
 
+class TransposeLayer(nn.Module):
+    """
+    From BEND. Needed for CNN_BEND decoder   
+    A layer that transposes the input.
+    """
+    def __init__(
+        self,
+    ):
+        super().__init__()
+
+    def forward(self, x):
+        """
+        Transpose the input.
+
+        Parameters
+        ----------
+        x: torch.Tensor
+            Input tensor.
+
+        Returns
+        -------
+        torch.Tensor
+            Transposed tensor.
+        """
+        x = torch.transpose(x, 1, 2)
+        return x
+
+class CNN_BEND_Decoder(nn.Module):
+    """
+    Adapted from BEND. 
+    A two-layer CNN with step size 1, GeLU activation, and a linear layer.
+    Needed to load trained HyenaDNA models.
+    """
+    def __init__(self, d_model, 
+                 d_output=9, 
+                 hidden_size=64, 
+                 kernel_size=3):
+        """
+        Build a two-layer CNN with step size 1, GeLU activation, and a linear layer.
+
+        Parameters
+        ----------
+        d_model: int
+            The embedding size of the input sequence.
+        d_output: int
+            The size of the output sequence.
+        hidden_size: int
+            The number of channels in the convolutional layers.
+        kernel_size: int
+            The kernel size of the convolutional layers.
+        """
+        super().__init__()
+        self.d_output = d_output
+        self.d_model = d_model
+        self.hidden_size = hidden_size
+        self.kernel_size = kernel_size
+
+        self.conv1 = nn.Sequential(TransposeLayer(), 
+                                   nn.Conv1d(self.d_model, self.hidden_size, self.kernel_size, stride = 1, padding = 1), 
+                                   TransposeLayer(),
+                                   nn.GELU())
+        
+        self.conv2 = nn.Sequential(TransposeLayer(), 
+                                   nn.Conv1d(self.hidden_size, self.hidden_size, self.kernel_size, stride = 1, padding = 1), 
+                                   TransposeLayer(), 
+                                   nn.GELU(),
+                                  )
+
+        self.linear = nn.Sequential(nn.Linear(self.hidden_size, self.d_output))
+        # no activation at the end like in BEND 
+        
+    def forward(self, x):
+        """
+        Forward pass of the CNN.
+
+        Parameters
+        ----------
+        x: torch.Tensor
+            Input tensor. Should have shape (batch_size, length, d_model).
+        Returns
+        -------
+        torch.Tensor
+            Output tensor. Has shape (batch_size, length, d_output).
+
+        """
+        # 1st conv layer
+        x = self.conv1(x)
+        # 2nd conv layer 
+        x = self.conv2(x)
+        # linear layer 
+        x = self.linear(x)
+        return x
+    
+    def step(self, x, state=None):
+        # Ignore all length logic
+        return self.forward(x)
+    
+
 """
 Putting it all together, the model consists of a backbone model
 and a decoder head (you can turn off head for embeddings only too).
@@ -908,7 +1006,8 @@ class HyenaDNAModel(nn.Module):
         # we only need a head if doing classification, otherwise we'll use the
         # hidden states as embeddings
         if self.use_head:
-            self.head = SequenceDecoder(d_model=d_model, d_output=n_classes, l_output=0, mode='pool')
+            #self.head = SequenceDecoder(d_model=d_model, d_output=n_classes, l_output=0, mode='pool')
+            self.head = CNN_BEND_Decoder(d_model=d_model, d_output=n_classes)
 
         # Initialize weights and apply final processing
         self.apply(partial(_init_weights, n_layer=n_layer,
@@ -1128,6 +1227,8 @@ def load_weights(scratch_dict, pretrained_dict, checkpointing=False):
                 scratch_dict[key] = pretrained_dict[key_loaded]
             except:
                 raise Exception('key mismatch in the state dicts!')
+            if scratch_dict[key].shape != pretrained_dict[key_loaded].shape:
+                raise Exception(f'shape mismatch! scratch dict {scratch_dict[key].shape}, loaded dict {pretrained_dict[key_loaded].shape}')
     
     # force this so that we fail if the lm_head is not present
     scratch_dict['lm_head.weight'] = pretrained_dict['model.lm_head.weight']
@@ -1135,6 +1236,25 @@ def load_weights(scratch_dict, pretrained_dict, checkpointing=False):
     # scratch_dict has been updated
     return scratch_dict
 
+def load_decoder_head_weights(scratch_dict, pretrained_dict, checkpointing=False):
+    """Loads pretrained (head only) weights into the scratch state dict."""
+
+    # loop thru state dict of scratch
+    # find the corresponding weights in the loaded model, and set it
+
+    # need to do some state dict "surgery"
+    for key, value in scratch_dict.items():
+        if 'head' in key and not 'lm_head' in key:
+            # the state dicts differ, from scratch model has 'head.', trained weights have 'decoder.0.'
+            key_loaded = key.replace("head.", "decoder.0.")
+            try:
+                scratch_dict[key] = pretrained_dict[key_loaded]
+            except:
+                raise Exception(f'key mismatch in the state dicts for key:{key}. tried to load pretrained key: {key_loaded}.')
+            if scratch_dict[key].shape != pretrained_dict[key_loaded].shape:
+                raise Exception(f'shape mismatch! scratch dict {scratch_dict[key].shape}, loaded dict {pretrained_dict[key_loaded].shape}')
+    # scratch_dict has been updated
+    return scratch_dict
 
 class HyenaDNAPreTrainedModel(PreTrainedModel):
     """
@@ -1159,6 +1279,7 @@ class HyenaDNAPreTrainedModel(PreTrainedModel):
                         use_head=False,
                         use_lm_head=False,
                         n_classes=2,
+                        ckpt_file_name='weights.ckpt'
                       ):
         
         # TODO make this use the default huggingface cache path.
@@ -1184,8 +1305,9 @@ class HyenaDNAPreTrainedModel(PreTrainedModel):
 
         scratch_model = HyenaDNAModel(**config, use_head=use_head, use_lm_head=use_lm_head, n_classes=n_classes)  # the new model format
         loaded_ckpt = torch.load(
-            os.path.join(pretrained_model_name_or_path, 'weights.ckpt'),
-            map_location=torch.device(device)
+            os.path.join(pretrained_model_name_or_path, ckpt_file_name),
+            map_location=torch.device(device),
+            weights_only=False
         )
 
         # need to load weights slightly different if using gradient checkpointing
@@ -1196,8 +1318,10 @@ class HyenaDNAPreTrainedModel(PreTrainedModel):
 
         # grab state dict from both and load weights
         state_dict = load_weights(scratch_model.state_dict(), loaded_ckpt['state_dict'], checkpointing=checkpointing)
+        if use_head:
+            state_dict = load_decoder_head_weights(state_dict, loaded_ckpt['state_dict'])
 
         # scratch model has now been updated
-        scratch_model.load_state_dict(state_dict)
+        scratch_model.load_state_dict(state_dict, strict=True)
         print("Loaded pretrained weights ok!")
         return scratch_model
