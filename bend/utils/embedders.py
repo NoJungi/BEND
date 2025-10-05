@@ -1508,13 +1508,3 @@ def embed_sequence(sequences : List[str], embedding_type : str = 'categorical', 
         return sequences
 
     return sequences
-
-
-if __name__ == "__main__":
-    path = "/home/s-nojung/jupyterhub/Masterarbeit/Code/hyena-dna/outputs/training/conv_gene_decoder/3layers/2order/2024-08-08/09-10-50-384663"
-    embedder = HyenaDNAModel(path)
-
-    embedding = embedder.embed(['AGGATGCCGAGAGTATATGGGA', 'CCCAACCGAGAGTATATGTTAT'])
-
-    embedding = embedder('AGGATGCCGAGAGTATATGGGA') 
-
