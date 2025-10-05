@@ -3,8 +3,6 @@ train_on_task.py
 ----------------
 Train a model on a downstream task.
 '''
-import sys
-sys.path.append("/home/s-nojung/jupyterhub/Masterarbeit/Code/BEND")
 import hydra 
 from omegaconf import DictConfig, OmegaConf, open_dict
 import torch
@@ -85,7 +83,7 @@ def run_experiment(cfg: DictConfig) -> None:
         trainer.train(train_loader, val_loader, test_loader, cfg.params.epochs, cfg.params.load_checkpoint)
     
     # test 
-    trainer.test(test_loader, overwrite=False)
+    trainer.test(test_loader, overwrite=False, load_checkpoint=cfg.params.load_checkpoint_for_testing)
 
 if __name__ == '__main__':
     print('Run experiment')
