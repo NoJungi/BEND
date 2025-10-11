@@ -11,4 +11,3 @@ torchvision
 hydra-joblib-launcher
 webdataset
 beautifulsoup4
-pysam
