@@ -1,3 +1,38 @@
+# Attention
+
+This is a fork of the [original BEND repository](https://github.com/frederikkemarin/BEND). The branch [run_trained_hyenadna](https://github.com/NoJungi/BEND/tree/run_trained_hyenadna) adapts the code of BEND for the benchmarking of end-to-end trained HyenaDNA models on the gene finding task.
+
+The follwoing files were updated:
+- [bend/models/downstream.py](https://github.com/NoJungi/BEND/blob/run_trained_hyenadna/bend/models/downstream.py)
+- [bend/models/hyena_dna.py](https://github.com/NoJungi/BEND/blob/run_trained_hyenadna/bend/models/hyena_dna.py)
+- [bend/utils/embedders.py](https://github.com/NoJungi/BEND/blob/run_trained_hyenadna/bend/utils/embedders.py)
+- [bend/utils/task_trainer.py](https://github.com/NoJungi/BEND/blob/run_trained_hyenadna/bend/utils/task_trainer.py)
+- [scripts/train_on_task.py](https://github.com/NoJungi/BEND/blob/run_trained_hyenadna/scripts/train_on_task.py)
+- [conf/embedding/embed.yaml](https://github.com/NoJungi/BEND/blob/run_trained_hyenadna/conf/embedding/embed.yaml)
+- [conf/supervised_tasks/gene_finding.yaml](https://github.com/NoJungi/BEND/blob/run_trained_hyenadna/conf/supervised_tasks/gene_finding.yaml)
+
+To run this repository follow these steps:
+```bash
+git clone https://github.com/NoJungi/BEND.git
+cd BEND
+git checkout run_trained_hyenadna
+pip install -r requirements.txt
+pip install -e .
+```
+The datasets can be downloaded with 
+```bash
+python scripts/download_bend.py
+```
+
+Use this [fork of the HyenaDNA repository](https://github.com/NoJungi/hyena-dna/tree/add_gene_prediction) to start end-to-end training of HyenaDNA models on the gene finding dataset from Marin et al., "BEND: Benchmarking DNA Language Models on Biologically Meaningful Tasks", 2024.
+Then add the models and checkpoint paths to [conf/embedding/embed.yaml](https://github.com/NoJungi/BEND/blob/run_trained_hyenadna/conf/embedding/embed.yaml) and add the model names to [conf/supervised_tasks/gene_finding.yaml](https://github.com/NoJungi/BEND/blob/run_trained_hyenadna/conf/supervised_tasks/gene_finding.yaml). Run the following cell to precompute the class predictions and the MCCs.
+```bash
+python scripts/precompute_embeddings.py splits=[test]
+python scripts/train_on_task.py --config-name gene_finding
+```
+
+
+
 # 🧬 BEND  - **Ben**chmarking **D**NA Language Models on Biologically Meaningful Tasks
 
 ![Stars](https://img.shields.io/github/stars/frederikkemarin/BEND?logo=GitHub&color=yellow)
