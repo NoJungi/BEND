@@ -12,7 +12,7 @@ hydra :
       embedder : hyenadna-128_tiny-fine_tuning_full-CCE_F1_loss,
             hyenadna-128_tiny-fine_tuning_full-CCE_loss,
             hyenadna-128_tiny-fine_tuning_frozen_backbone-CCE_F1_loss,
-            hyenadna-128_tiny-fine_tuning_frozen_backbone-CCE_loss,
+            hyenadna-128_tiny-fine_tuning_frozen_backbone-CCE_loss
             #hyenadna-256_tiny-fine_tuning_full-CCE_F1_loss,
             #hyenadna-256_tiny-fine_tuning_full-CCE_loss,
             #hyenadna-256_tiny-fine_tuning_frozen_backbone-CCE_F1_loss,
