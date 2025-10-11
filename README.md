@@ -1,3 +1,15 @@
+# Attention
+
+This is a fork of the [original BEND repository](https://github.com/frederikkemarin/BEND). The branch [run_trained_hyenadna](https://github.com/NoJungi/BEND/tree/run_trained_hyenadna) adapts the code of BEND for the benchmarking of end-to-end trained HyenaDNA models on the gene finding task.
+
+Please check out the RADME from branch [run_trained_hyenadna](https://github.com/NoJungi/BEND/tree/run_trained_hyenadna).
+```bash
+git clone https://github.com/NoJungi/BEND.git
+cd BEND
+git checkout run_trained_hyenadna
+```
+
+
 # 🧬 BEND  - **Ben**chmarking **D**NA Language Models on Biologically Meaningful Tasks
 
 ![Stars](https://img.shields.io/github/stars/frederikkemarin/BEND?logo=GitHub&color=yellow)
