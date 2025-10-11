@@ -861,7 +861,10 @@ class SequenceDecoder(nn.Module):
 
 class TransposeLayer(nn.Module):
     """
-    From BEND. Needed for CNN_BEND decoder   
+    From BEND (Marin et al., "BEND: Benchmarking DNA Language Models on Biologically Meaningful Tasks", 2024).
+    https://github.com/frederikkemarin/BEND/blob/main/bend/models/downstream.py 
+    
+    Needed for CNN_BEND decoder   
     A layer that transposes the input.
     """
     def __init__(
@@ -888,7 +891,9 @@ class TransposeLayer(nn.Module):
 
 class CNN_BEND_Decoder(nn.Module):
     """
-    Adapted from BEND. 
+    Adapted from BEND (Marin et al., "BEND: Benchmarking DNA Language Models on Biologically Meaningful Tasks", 2024).
+    https://github.com/frederikkemarin/BEND/blob/main/bend/models/downstream.py
+
     A two-layer CNN with step size 1, GeLU activation, and a linear layer.
     Needed to load trained HyenaDNA models.
     """
@@ -1237,7 +1242,7 @@ def load_weights(scratch_dict, pretrained_dict, checkpointing=False):
     return scratch_dict
 
 def load_decoder_head_weights(scratch_dict, pretrained_dict, checkpointing=False):
-    """Loads pretrained (head only) weights into the scratch state dict."""
+    """Loads pretrained (decoder head only) weights into the scratch state dict."""
 
     # loop thru state dict of scratch
     # find the corresponding weights in the loaded model, and set it

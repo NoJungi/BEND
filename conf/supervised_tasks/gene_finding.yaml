@@ -13,10 +13,11 @@ hydra :
             hyenadna-128_tiny-fine_tuning_full-CCE_loss,
             hyenadna-128_tiny-fine_tuning_frozen_backbone-CCE_F1_loss,
             hyenadna-128_tiny-fine_tuning_frozen_backbone-CCE_loss,
-            hyenadna-256_tiny-fine_tuning_full-CCE_F1_loss,
-            hyenadna-256_tiny-fine_tuning_full-CCE_loss,
-            hyenadna-256_tiny-fine_tuning_frozen_backbone-CCE_F1_loss,
-            hyenadna-256_tiny-fine_tuning_frozen_backbone-CCE_loss
+            #hyenadna-256_tiny-fine_tuning_full-CCE_F1_loss,
+            #hyenadna-256_tiny-fine_tuning_full-CCE_loss,
+            #hyenadna-256_tiny-fine_tuning_frozen_backbone-CCE_F1_loss,
+            #hyenadna-256_tiny-fine_tuning_frozen_backbone-CCE_loss
+            #
             #fully trained hynea models:
             #hyenadna-128_d_model-1_layers-2_order-CCE_F1_loss,
             #hyenadna-128_d_model-1_layers-2_order-CCE_loss,
@@ -78,7 +79,42 @@ hydra :
             #hyenadna-256_d_model-5_layers-3_order-CCE_loss,
             #hyenadna-256_d_model-5_layers-4_order-CCE_F1_loss,
             #hyenadna-256_d_model-5_layers-4_order-CCE_loss
-            #
+            #hyenadna-128_d_model-6_layers-2_order-CCE_F1_loss,
+            #hyenadna-128_d_model-6_layers-2_order-CCE_loss,
+            #hyenadna-128_d_model-6_layers-3_order-CCE_F1_loss,
+            #hyenadna-128_d_model-6_layers-3_order-CCE_loss,
+            #hyenadna-128_d_model-6_layers-4_order-CCE_F1_loss,
+            #hyenadna-128_d_model-6_layers-4_order-CCE_loss,
+            #hyenadna-128_d_model-7_layers-2_order-CCE_F1_loss,
+            #hyenadna-128_d_model-7_layers-2_order-CCE_loss,
+            #hyenadna-128_d_model-7_layers-3_order-CCE_F1_loss,
+            #hyenadna-128_d_model-7_layers-3_order-CCE_loss,
+            #hyenadna-128_d_model-7_layers-4_order-CCE_F1_loss,
+            #hyenadna-128_d_model-7_layers-4_order-CCE_loss,
+            #hyenadna-256_d_model-6_layers-2_order-CCE_F1_loss,
+            #hyenadna-256_d_model-6_layers-2_order-CCE_loss,
+            #hyenadna-256_d_model-6_layers-3_order-CCE_F1_loss,
+            #hyenadna-256_d_model-6_layers-3_order-CCE_loss,
+            #hyenadna-256_d_model-6_layers-4_order-CCE_F1_loss,
+            #hyenadna-256_d_model-6_layers-4_order-CCE_loss,
+            #hyenadna-256_d_model-7_layers-2_order-CCE_F1_loss,
+            #hyenadna-256_d_model-7_layers-2_order-CCE_loss,
+            #hyenadna-256_d_model-7_layers-3_order-CCE_F1_loss,
+            #hyenadna-256_d_model-7_layers-3_order-CCE_loss,
+            #hyenadna-256_d_model-7_layers-4_order-CCE_F1_loss,
+            #hyenadna-256_d_model-7_layers-4_order-CCE_loss
+            #hyenadna-128_d_model-8_layers-2_order-CCE_F1_loss,
+            #hyenadna-128_d_model-8_layers-2_order-CCE_loss,
+            #hyenadna-128_d_model-8_layers-3_order-CCE_F1_loss,
+            #hyenadna-128_d_model-8_layers-3_order-CCE_loss,
+            #hyenadna-128_d_model-8_layers-4_order-CCE_F1_loss,
+            #hyenadna-128_d_model-8_layers-4_order-CCE_loss,
+            #hyenadna-256_d_model-8_layers-2_order-CCE_F1_loss,
+            #hyenadna-256_d_model-8_layers-2_order-CCE_loss,
+            #hyenadna-256_d_model-8_layers-3_order-CCE_F1_loss,
+            #hyenadna-256_d_model-8_layers-3_order-CCE_loss,
+            #hyenadna-256_d_model-8_layers-4_order-CCE_F1_loss,
+            #hyenadna-256_d_model-8_layers-4_order-CCE_loss
              #gena-lm-bigbird-base-t2t,
                  #gena-lm-bigbird-base-t2t,
                  #gena-lm-bert-large-t2,
@@ -103,7 +139,7 @@ embedder : onehot
 output_dir: ./downstream_tasks/${task}/${embedder}/
 model:
   _target_: bend.models.downstream.Identity 
-  # for normal BEND benchmark: CNN, here the whole trained model is evaluated, 
+  # for normal BEND benchmark: CNN, here the end-to-end trained HyenaDNA models are evaluated, 
   #the embedded files already contain class predictions, therefore only use Id as _target_
 
   #input_size: ${datadims.${embedder}}
@@ -132,6 +168,6 @@ params:
   class_weights: null #[6.37, 1485.62, 1.52, 1485.62, 6.11, 1438.04, 1.52, 1438.04, 1.0]
   metric : mcc
   activation : none
-  load_checkpoint_for_testing : false  # when only testing a full model
+  load_checkpoint_for_testing : false  # set to false when benchmarking an end-to-end trained model where the embeddings already represent class predictions
 wandb:
   mode : disabled 

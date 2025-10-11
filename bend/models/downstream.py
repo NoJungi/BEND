@@ -104,7 +104,7 @@ class Identity(nn.Module):
     def __init__(self):
         super(Identity, self).__init__()
         self.id = nn.Identity()
-        self.linear = nn.Linear(5,5) # hack otherwise optimizer has no trainable parameters
+        self.linear = nn.Linear(5,5) # otherwise optimizer has no trainable parameters and returns error
 
     def forward(self, x, **kwargs):
         return self.id(x)

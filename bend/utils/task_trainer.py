@@ -511,7 +511,7 @@ class BaseTrainer:
                                               torch.cat([i.flatten() for i in outputs]))
         return loss, metrics
 
-    def test(self, test_loader, checkpoint = None, overwrite=False, load_checkpoint=True):
+    def test(self, test_loader, load_checkpoint=True, checkpoint = None, overwrite=False):
         """
         Performs testing.
 
@@ -519,8 +519,11 @@ class BaseTrainer:
         ----------
         test_loader : torch.utils.data.DataLoader
             The data loader to be used.
+        load_checkpoint: bool
+            If True tries to load checkpoint, set to False for evaluation of end-toe-nd trained 
+            models where the embeddings already present class predictions
         checkpoint : pandas.DataFrame, optional
-            The checkpoint to be used. If None, loads the checkpoint with the
+            The checkpoint to be used if load_checkpoint=True. If None, loads the checkpoint with the
             lowest validation loss.
         overwrite : bool, optional
             If True, overwrites the `best_model_metrics` file.

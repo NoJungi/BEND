@@ -872,7 +872,7 @@ class HyenaDNAEmbedder(BaseEmbedder):
 
 
 
-class trainedHyenaDNAModel(BaseEmbedder):
+class TrainedHyenaDNAModel(BaseEmbedder):
     '''Embed using a self trained HyenaDNA model. '''
     def load_model(self, model_path = None, return_logits: bool=False, return_loss: bool=False, **kwargs):
 
